@@ -1,14 +1,16 @@
 # url2graphite
 A very VERY dumb and insecure "server" to send arbitrary stats to graphite.
 
-Parses the ouput of a curl request, and then using bash (!!) forwards it on to a graphite (or a statsd) instance. 
+Parses the ouput of a curl request, and then forwards it to a graphite instance.  
 
-This abuses unix pipes, go tutorials, and will probably cause your production systems to catch fire if you ever EVER decide to use this in production. 
+This abuses go tutorials, fmtprint, unix dates,  and will probably cause your production systems to catch fire if you ever EVER decide to use this in production. 
 
-There is no security. None. If you wanted to run this somewhere on the public-facing internet, nginx with .htpasswd would probably help. You have been warned though. 
+There is no security. None. If you wanted to run this somewhere on the public-facing internet, may the gods help you. 
 
 To send a request: 
 
 ```curl -s http://host:9090/requestname/requestnamestat/$RANDOM > /dev/null```
 
-To change the port and IP of your graphite instance, set the PORT and SERVER variables in forward.sh 
+You have to edit the graphite_ip and listen_port consts to change your settings.
+
+This can't do requests to passworded graphite. Yet. 
