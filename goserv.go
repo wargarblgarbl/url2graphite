@@ -8,15 +8,19 @@ import (
 )
 
 
-
-
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
-    fmt.Println(r.URL.Path)
-    for k, v := range r.Form {
-        fmt.Println("key:", k)
-        fmt.Println("val:", strings.Join(v, ""))
-    }
-	fmt.Fprintf(w, r.URL.Path)
+	//Turn into slice
+	x := strings.Split(r.URL.Path, "/")
+	//last portion of the slice
+	l := x[len(x)-1]
+    	//beginning of the slice
+	f := x[:len(x)-1]
+	//let's turn f into a string
+	z := strings.Join(f[:],".")
+	//Minor cleanup, want to get rid of that first .
+	u := strings.Replace(z, ".", "", 1)	
+	fmt.Println(u, l)   
+	fmt.Fprintf(w, r.URL.Path) 
 }
 
 func main() {
