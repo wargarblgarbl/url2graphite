@@ -59,7 +59,7 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	const (listen_port=":9090" )
-	http.HandleFunc("/", sayhelloName) // set router
+	go http.HandleFunc("/", sayhelloName) // set router
 	err := http.ListenAndServe(listen_port, nil) // set listen port
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
