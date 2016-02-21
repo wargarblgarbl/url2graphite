@@ -9,4 +9,6 @@ There is no security. None. If you wanted to run this somewhere on the public-fa
 
 To send a request: 
 
-```curl -s http://host:9090/requestname/requestnamestat/$RANDOM > /dev/null``` 
+```curl -s http://host:9090/requestname/requestnamestat/$RANDOM > /dev/null```
+
+To change the port and IP of your graphite instance, set the PORT and SERVER variables in forward.sh 
