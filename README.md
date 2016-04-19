@@ -13,4 +13,4 @@ To send a request:
 
 You have to edit the graphite_ip and listen_port consts to change your settings.
 
-This can't do requests to passworded graphite. Yet. 
+This can't do requests to passworded graphite.  

@@ -31,7 +31,8 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 	// let's concat this into the one thing we want it to be.(newline is necessary)
 	packet := u +" "+ l+ " "+date+"\n"
 	fmt.Println("processed:", packet)
-	fmt.Fprintf(w, r.URL.Path)
+	//fmt.Fprintf(w, r.URL.Path)
+	//fmt.Fprintf(w, '<script language="JavaScript" type="text/javascript">function winClose() {    window.setTimeOut("window.close();",5000)}</script><body onload="winClose();">')
 	//let's send this stuff to TCP
 	fmt.Println("sent:", packet)
 	conn, err := net.Dial("tcp", graphite_ip)
