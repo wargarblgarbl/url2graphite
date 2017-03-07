@@ -9,6 +9,7 @@ import (
 	"time"
 	"flag"
 	"strconv"
+	"os"
 )
 
 var graphURL = flag.String("gurl", "192.168.1.138", "url of graphite server");
@@ -72,9 +73,13 @@ func info(w http.ResponseWriter, r *http.Request){
 	flag.Parse()
 	lAdd := *listenAddress
 	if lAdd == "" {
-		lAdd = "127.0.0.1"
+		lAdd = "localhost"
 	}
-	text := "server running on: "+lAdd+`
+	hostname, err := os.Hostname()
+	if err != nil {
+		hostname = "error could not find hostname"
+	}
+	text := "server running on: "+lAdd+" ("+hostname+")"+`
 server running on port: `+*listenPort+`
 graphite server address: `+*graphURL+
 `
