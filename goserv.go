@@ -7,11 +7,14 @@ import (
 	"log"
 	"net"
 	"time"
+	"flag"
 	"strconv"
 )
-const (
-	graphite_ip = "192.168.1.138:2003"
-)
+
+var graphURL = flag.String("gurl", "192.168.1.138", "url of graphite server");
+var graphPort = flag.String("gport", "2003", "graphite port");
+var listenPort = flag.String("lport", "9090", "local server listen port");
+var listenAddress = flag.String("laddress", "", "local server address");
 
 
 func procRequest(input string)(output string) {
@@ -35,7 +38,8 @@ func procRequest(input string)(output string) {
 }
 
 func sendTCP(packet string)(output string){
-	conn, err := net.Dial("tcp", graphite_ip)
+	flag.Parse()
+	conn, err := net.Dial("tcp", *graphURL)
 	if err != nil {
 		fmt.Printf("error: %v", err)
 		return
@@ -64,12 +68,25 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-
+func info(w http.ResponseWriter, r *http.Request){
+	flag.Parse()
+	lAdd := *listenAddress
+	if lAdd == "" {
+		lAdd = "127.0.0.1"
+	}
+	text := "server running on: "+lAdd+`
+server running on port: `+*listenPort+`
+graphite server address: `+*graphURL+
+`
+graphite server port: `+*graphPort
+	fmt.Fprint(w, text)
+}
 
 func main() {
-	const (listen_port=":9090" )
+	flag.Parse()
 	go http.HandleFunc("/", sayhelloName) // set router
-	err := http.ListenAndServe(listen_port, nil) // set listen port
+	go http.HandleFunc("/info/", info)
+	err := http.ListenAndServe(*listenAddress+":"+*listenPort, nil) // set listen port
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
