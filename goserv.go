@@ -12,10 +12,10 @@ import (
 	"os"
 )
 
-var graphURL = flag.String("gurl", "192.168.1.138", "url of graphite server");
-var graphPort = flag.String("gport", "2003", "graphite port");
-var listenPort = flag.String("lport", "9090", "local server listen port");
-var listenAddress = flag.String("laddress", "", "local server address");
+var graphURL = flag.String("gurl", "192.168.1.138", "url of graphite server")
+var graphPort = flag.String("gport", "2003", "graphite port")
+var listenPort = flag.String("lport", "9090", "local server listen port")
+var listenAddress = flag.String("laddress", "", "local server address")
 
 
 func procRequest(input string)(output string) {
