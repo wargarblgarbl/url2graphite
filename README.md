@@ -6,7 +6,7 @@ Parses the ouput of a curl request, and then forwards it to a graphite instance.
 This abuses go tutorials, fmtprint, unix dates,  and will probably cause your production systems to catch fire if you ever EVER decide to use this in production. 
 
 
-###Optionsy
+###Options
 ```
   -gport string
     	graphite port (default "2003")
