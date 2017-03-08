@@ -16,7 +16,8 @@ var graphURL = flag.String("gurl", "192.168.1.138", "url of graphite server")
 var graphPort = flag.String("gport", "2003", "graphite port")
 var listenPort = flag.String("lport", "9090", "local server listen port")
 var listenAddress = flag.String("laddress", "", "local server address")
-
+var getTrue = flag.Bool("get", true, "set server to to parse GET requests via URL (classic functionality)")
+var postTrue = flag.Bool("post", false, "set default router to parse POST")
 
 func procRequest(input string)(output string) {
 	//turn into slice
@@ -89,7 +90,20 @@ graphite server port: `+*graphPort
 
 func main() {
 	flag.Parse()
-	go http.HandleFunc("/", sayhelloName) // set router
+
+	//make defaults turn off 
+	if *postTrue {
+		*getTrue = false
+	}
+	
+	switch {
+	case *getTrue:
+		go http.HandleFunc("/", sayhelloName) 
+	case *postTrue:
+		//Stub this out for now with the info route
+		go http.HandleFunc("/", info)
+	}
+	
 	go http.HandleFunc("/info/", info)
 	err := http.ListenAndServe(*listenAddress+":"+*listenPort, nil) // set listen port
 	if err != nil {
