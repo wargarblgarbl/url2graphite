@@ -13,7 +13,7 @@ This abuses go tutorials, fmtprint, unix dates,  and will probably cause your pr
   -gurl string
     	url of graphite server (default "192.168.1.138")
   -laddress string
-    	local server addressy
+    	local server address
   -lport string
     	local server listen port (default "9090")
 ```
